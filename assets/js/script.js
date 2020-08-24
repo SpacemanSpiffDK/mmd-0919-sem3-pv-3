@@ -3,7 +3,7 @@
 
 // Setting options in a json object
 let options = {
-    "controls": false, 
+    "controls": true, 
     "autoplay": true, 
     "preload": "auto", 
     "muted": true
@@ -11,3 +11,6 @@ let options = {
 
 // try the different json-objects here
 videojs('video1', options);
+videojs('video2', options);
+
+video.hotspots.init();
