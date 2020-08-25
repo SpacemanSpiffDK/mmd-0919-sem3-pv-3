@@ -59,53 +59,55 @@ let video = {
                 if (hotspot.active) {
                     // get video element for hotspot
                     const video = document.querySelector(`#${hotspot.videoId}>video`);
-                    const now = video.currentTime;
-                    const elmHotspotCheck = document.querySelector(`#hotspotId${hotspot.id}`);
-
-                    if (hotspot.markIn > now || hotspot.markOut <= now) {
-                        // check to see if element with the current hotspot id exists
-                        const currentHotspotId = `#hotspotId${hotspot.id}`;
-                        if (elmHotspotCheck){
-                            // remove hotspot element
-                            const elmHotspot = document.querySelector(`#hotspotId${hotspot.id}`);
-                            elmHotspot.parentElement.removeChild(elmHotspot);
-                            hotspot.onscreen = false; // clear on-screen flag for the current hotspot
-                        }
-                    } else if (hotspot.markIn <= now && hotspot.markOut > now) {
-                        if (!elmHotspotCheck) { // only draw new hotspot if it isn't already drawn
-                            let elmHotspot = document.createElement('a');
-                            elmHotspot.id = `hotspotId${hotspot.id}`;
-                            elmHotspot.className = 'hotspot';
-                            let css = "";
-                            css += `width: ${hotspot.sizeX}%;`;
-                            css += `height: ${hotspot.sizeY}%;`;
-                            css += `left: ${hotspot.posX}%;`;
-                            css += `top: ${hotspot.posY}%;`;
-                            css += `border: ${hotspot.ui.boxBorder};`;
-                            if (hotspot.ui.type == 'box'){
-                                // write and attach box-css to the elmHotspot
-                                css += `background-color: ${hotspot.ui.boxBackgroundColor};`;
-                            } else {
-                                // insert image css
-                                css += `background-image: url(${hotspot.ui.image})`;
-                                css += ``;
-                                elmHotspot.classList.add('image');
+                    if (video){
+                        const now = video.currentTime;
+                        const elmHotspotCheck = document.querySelector(`#hotspotId${hotspot.id}`);
+    
+                        if (hotspot.markIn > now || hotspot.markOut <= now) {
+                            // check to see if element with the current hotspot id exists
+                            const currentHotspotId = `#hotspotId${hotspot.id}`;
+                            if (elmHotspotCheck){
+                                // remove hotspot element
+                                const elmHotspot = document.querySelector(`#hotspotId${hotspot.id}`);
+                                elmHotspot.parentElement.removeChild(elmHotspot);
+                                hotspot.onscreen = false; // clear on-screen flag for the current hotspot
                             }
-                            elmHotspot.style = css;
-                            if (hotspot.hotspot.type == 'link'){
-                                // it's a link
-                                elmHotspot.href = hotspot.hotspot.url;
-                                elmHotspot.target = hotspot.hotspot.target;
-                            } else {
-                                // it's a function
-                                elmHotspot.addEventListener('click', (event) => {
-                                    event.preventDefault();
-                                    hotspot.hotspot.func();
-                                });
+                        } else if (hotspot.markIn <= now && hotspot.markOut > now) {
+                            if (!elmHotspotCheck) { // only draw new hotspot if it isn't already drawn
+                                let elmHotspot = document.createElement('a');
+                                elmHotspot.id = `hotspotId${hotspot.id}`;
+                                elmHotspot.className = 'hotspot';
+                                let css = "";
+                                css += `width: ${hotspot.sizeX}%;`;
+                                css += `height: ${hotspot.sizeY}%;`;
+                                css += `left: ${hotspot.posX}%;`;
+                                css += `top: ${hotspot.posY}%;`;
+                                css += `border: ${hotspot.ui.boxBorder};`;
+                                if (hotspot.ui.type == 'box'){
+                                    // write and attach box-css to the elmHotspot
+                                    css += `background-color: ${hotspot.ui.boxBackgroundColor};`;
+                                } else {
+                                    // insert image css
+                                    css += `background-image: url(${hotspot.ui.image})`;
+                                    css += ``;
+                                    elmHotspot.classList.add('image');
+                                }
+                                elmHotspot.style = css;
+                                if (hotspot.hotspot.type == 'link'){
+                                    // it's a link
+                                    elmHotspot.href = hotspot.hotspot.url;
+                                    elmHotspot.target = hotspot.hotspot.target;
+                                } else {
+                                    // it's a function
+                                    elmHotspot.addEventListener('click', (event) => {
+                                        event.preventDefault();
+                                        hotspot.hotspot.func();
+                                    });
+                                }
+                                video.parentElement.appendChild(elmHotspot);
                             }
-                            video.parentElement.appendChild(elmHotspot);
-                        }
-                    } 
+                        } 
+                    }
                 }
             });
             if (isSeeked){
