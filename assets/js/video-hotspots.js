@@ -25,13 +25,10 @@ let video = {
                         elmsVideo.forEach((elmVideo) => {
                             if (!elmVideo.paused) {
                                 videoPlaying = true;
-                                console.log(elmVideo.id + ' this video is not paused videoPlaying is now ' + videoPlaying);
                             }
                         });
                         if (!videoPlaying) {
-                            video.hotspots.on();   // if all videos are NOT playing we can turn off the loop engine
-                        } else {
-                            video.hotspots.off()
+                            video.hotspots.off();   // if all videos are NOT playing we can turn off the loop engine
                         }
                     }
                 });
@@ -39,18 +36,18 @@ let video = {
         },
         on: function (isSeeked = false) {
             // start the interval loop
-            console.log('video hotspot engine: on');
+            // console.log('video hotspot engine: on');
             if (!video.hotspots.running) {       // only start it if it isn't already running
                 video.hotspots.running = true;  // make sure to tell our boolean that we are turning on the engine
             }
             engine = setInterval(() => {        // start the interval engine
-                console.log('engine loop');
+                // console.log('engine loop');
                 video.hotspots.update(isSeeked);
             }, 100);
         },
         off: function () {
             // kill the interval var
-            console.log('video hotspot engine: off');
+            // console.log('video hotspot engine: off');
             video.hotspots.running = false;     // make sure to tell our boolean that the engine is being stopped
             clearInterval(engine);              // stop the engine
         },
