@@ -14,30 +14,9 @@ let video = {
                         video.hotspots.on();
                     }
                 });
-                elmVideo.addEventListener('seeked', (event) => {      // add eventlistener play on videos
-                    if (!video.hotspots.running) {                   // start engine, if it is not running already
-                        video.hotspots.on(true);
-                    }
-                });
-                elmVideo.addEventListener('pause', (event) => {         // add eventlistener stop/pause on videos
-                    if (video.hotspots.running) {        // if engine is running
-                        let videoPlaying = false;       // check if all videos are stopped/paused
-                        elmsVideo.forEach((elmVideo) => {
-                            if (!elmVideo.paused) {
-                                videoPlaying = true;
-                                console.log(elmVideo.id + ' this video is not paused videoPlaying is now ' + videoPlaying);
-                            }
-                        });
-                        if (!videoPlaying) {
-                            video.hotspots.on();   // if all videos are NOT playing we can turn off the loop engine
-                        } else {
-                            video.hotspots.off()
-                        }
-                    }
-                });
             });
         },
-        on: function (isSeeked = false) {
+        on: function () {
             // start the interval loop
             console.log('video hotspot engine: on');
             if (!video.hotspots.running) {       // only start it if it isn't already running
@@ -45,7 +24,7 @@ let video = {
             }
             engine = setInterval(() => {        // start the interval engine
                 console.log('engine loop');
-                video.hotspots.update(isSeeked);
+                video.hotspots.update();
             }, 100);
         },
         off: function () {
@@ -54,7 +33,7 @@ let video = {
             video.hotspots.running = false;     // make sure to tell our boolean that the engine is being stopped
             clearInterval(engine);              // stop the engine
         },
-        update: function(isSeeked){
+        update: function(){
             hotspots.forEach((hotspot) => {
                 if (hotspot.active) {
                     // get video element for hotspot
@@ -108,9 +87,6 @@ let video = {
                     } 
                 }
             });
-            if (isSeeked){
-                video.hotspots.off();
-            }
         },
         remove: function () {
             // kill all hotspot related functions
