@@ -1,4 +1,4 @@
 This repo is for educational purposes
 
 A framework for showing time-encoded hotspots on multiple videos.
-Assumes video.js for finding video elements (can easily be corrected)
+Assumes either video.js or a parent <div> for the video that has the same dimensions as the video.

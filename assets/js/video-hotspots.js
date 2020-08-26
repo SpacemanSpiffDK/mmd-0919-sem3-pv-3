@@ -1,4 +1,5 @@
-// this script assumes video.js (or a parent <div> for the video that has the same dimensions as the video)
+// A framework for showing time-encoded hotspots on multiple videos.
+// Assumes either video.js or a parent <div> for the video that has the same dimensions as the video.
 
 // ## SETTINGS START
 const fps = 30;     // ## adjust this to set the frames per second precision on the hotspot appearance (lower = less cpu used)
