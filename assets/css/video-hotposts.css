@@ -1,3 +1,7 @@
+.videoHotspotsParent {
+    position: relative;
+}
+
 div > .hotspot {
     box-sizing: border-box;
     position: absolute;

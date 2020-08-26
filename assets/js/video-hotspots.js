@@ -1,4 +1,4 @@
-// this script assumes video.js for finding HTML DOM elements (parent DIVs to VIDEO tags)
+// this script assumes video.js (or a parent <div> for the video that has the same dimensions as the video)
 
 // ## SETTINGS START
 const fps = 30;     // ## adjust this to set the frames per second precision on the hotspot appearance (lower = less cpu used)
@@ -20,6 +20,7 @@ let video = {
             video.log('video hotspot engine: init');
             const elmsVideo = document.querySelectorAll('video');   // grab all videos on the page
             elmsVideo.forEach((elmVideo) => {                       // loop through the parents of the video elements
+                elmVideo.parentElement.classList.add('videoHotspotsParent');                  
                 elmVideo.addEventListener('play', (event) => {      // add eventlistener play on videos
                     if (!video.hotspots.running) {                   // start engine, if it is not running already
                         video.hotspots.on();
