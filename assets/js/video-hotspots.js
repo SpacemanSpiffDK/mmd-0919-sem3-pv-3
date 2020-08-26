@@ -63,27 +63,27 @@ let video = {
             clearInterval(engine);              // stop the engine
         },
         update: function(){
-            hotspots.forEach((hotspot) => {
+            hotspots.forEach((hotspot, index) => {
                 if (hotspot.active) {
                     // get video element for hotspot
                     const video = document.querySelector(`#${hotspot.videoId}>video`);
                     if (video){
                         const now = video.currentTime;
-                        const elmHotspotCheck = document.querySelector(`#hotspotId${hotspot.id}`);
+                        const elmHotspotCheck = document.querySelector(`#hotspotId${index}`);
     
                         if (hotspot.markIn > now || hotspot.markOut <= now) {
                             // check to see if element with the current hotspot id exists
-                            const currentHotspotId = `#hotspotId${hotspot.id}`;
+                            const currentHotspotId = `#hotspotId${index}`;
                             if (elmHotspotCheck){
                                 // remove hotspot element
-                                const elmHotspot = document.querySelector(`#hotspotId${hotspot.id}`);
+                                const elmHotspot = document.querySelector(`#hotspotId${index}`);
                                 elmHotspot.parentElement.removeChild(elmHotspot);
                                 hotspot.onscreen = false; // clear on-screen flag for the current hotspot
                             }
                         } else if (hotspot.markIn <= now && hotspot.markOut > now) {
                             if (!elmHotspotCheck) { // only draw new hotspot if it isn't already drawn
                                 let elmHotspot = document.createElement('a');
-                                elmHotspot.id = `hotspotId${hotspot.id}`;
+                                elmHotspot.id = `hotspotId${index}`;
                                 elmHotspot.className = 'hotspot';
                                 let css = "";
                                 css += `width: ${hotspot.sizeX}%;`;
@@ -132,7 +132,6 @@ let video = {
 const hotspots = [
     {
         active: true,
-        id: 2,
         videoId: "video1",
         markIn: 20.4,
         markOut: 21,
@@ -155,7 +154,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 3,
         videoId: "video2",
         markIn: 4,
         markOut: 10,
@@ -177,7 +175,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 10,
         videoId: "video2",
         markIn: 5,
         markOut: 11,
@@ -199,7 +196,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 4,
         videoId: "video3",
         markIn: 3,
         markOut: 5,
@@ -221,7 +217,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 5,
         videoId: "video3",
         markIn: 4,
         markOut: 6,
@@ -243,7 +238,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 6,
         videoId: "video4",
         markIn: 2,
         markOut: 3,
@@ -265,7 +259,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 7,
         videoId: "video4",
         markIn: 3,
         markOut: 4,
@@ -287,7 +280,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 8,
         videoId: "video4",
         markIn: 4,
         markOut: 5,
@@ -309,7 +301,6 @@ const hotspots = [
     },
     {
         active: true,
-        id: 9,
         videoId: "video4",
         markIn: 5,
         markOut: 6,
