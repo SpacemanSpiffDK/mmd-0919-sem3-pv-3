@@ -123,15 +123,21 @@ let video = {
             });
         },
         remove: function () {
-            // kill all hotspot related functions
+            // kill all hotspot related functions, json feed and DOM elements
             video.log('video hotspot engine: cleanup');
+            video.hotspots.off();                                               // turn off engine
+            const elmsHotspots = document.querySelectorAll('a.hotspot');        // find all hotspot DOM elements
+            elmsHotspots.forEach((elmHotspot) => {                              // loop through hotspots
+                elmHotspot.parentElement.removeChild(elmHotspot);               // remove current hotspot
+            });
+            delete video;                                                       // remove the variable from memory
+            delete hotspots;                                                    // remove the variable from memory
         }
 
     }
 }
 
 // data for hotspots
-
 const hotspots = [
     {
         // bird strike scream
