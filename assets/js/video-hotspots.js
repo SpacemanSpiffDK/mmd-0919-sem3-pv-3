@@ -1,7 +1,7 @@
 // this script assumes video.js for finding HTML DOM elements (parent DIVs to VIDEO tags)
 
 // ## SETTINGS START
-const debug = true; // ## set to true to get console.log output, use   video.log('text')
+const debug = false; // ## set to true to get console.log output, use   video.log('text')
 const fps = 30;     // ## adjust this to set the frames per second precision on the hotspot appearance (lower = less cpu used)
 // ## SETTINGS END
 
@@ -132,48 +132,24 @@ let video = {
 const hotspots = [
     {
         active: true,
-        id: 1,
-        videoId: "video1",
-        markIn: 0,
-        markOut: 2,
-        posX: 75,
-        posY: 25,
-        sizeX: 10,
-        sizeY: 10,
-        ui: {
-            type: "box",
-            image: "",
-            boxBorder: "2px solid blue",
-            boxBackgroundColor: "rgba(0,0,255,.5)"
-        },
-        hotspot: {
-            type: "link",
-            url: "http://dr.dk",
-            target: "_blank"
-        }
-    },
-    {
-        active: true,
         id: 2,
         videoId: "video1",
-        markIn: 1,
-        markOut: 3,
-        posX: 25,
-        posY: 25,
-        sizeX: 40,
-        sizeY: 40,
+        markIn: 20.4,
+        markOut: 21,
+        posX: 52,
+        posY: 6,
+        sizeX: 30,
+        sizeY: 32,
         ui: {
             type: "image",
-            image: "assets/images/kitten.jpg",
-            boxBorder: "2px solid blue"
+            image: "assets/images/speech-scream.png",
+            boxBorder: "none"
         },
         hotspot: {
             type: "function",
-            url: "http://dr.dk",
-            target: "_blank",
             func: function () {
                 // run any javascript you want done when clicking on the hotspot
-                video.log('KITTEN!!!');
+                // Leave empty if you want nothing to happen
             }
         }
     },
@@ -181,17 +157,39 @@ const hotspots = [
         active: true,
         id: 3,
         videoId: "video2",
-        markIn: 2,
-        markOut: 4,
+        markIn: 4,
+        markOut: 10,
         posX: 50,
         posY: 25,
-        sizeX: 10,
-        sizeY: 10,
+        sizeX: 20,
+        sizeY: 20,
         ui: {
             type: "box",
             image: "",
             boxBorder: "2px solid green",
             boxBackgroundColor: "rgba(0,255,0,.5)"
+        },
+        hotspot: {
+            type: "link",
+            url: "http://tv2.dk",
+            target: "_blank"
+        }
+    },
+    {
+        active: true,
+        id: 10,
+        videoId: "video2",
+        markIn: 5,
+        markOut: 11,
+        posX: 60,
+        posY: 30,
+        sizeX: 20,
+        sizeY: 20,
+        ui: {
+            type: "box",
+            image: "",
+            boxBorder: "2px solid red",
+            boxBackgroundColor: "rgba(255,0,0,.5)"
         },
         hotspot: {
             type: "link",
