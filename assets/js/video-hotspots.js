@@ -10,14 +10,14 @@ const msInterval = Math.floor(1000/fps); // calculate how many ms per loop to ma
 let engine; // declare a variable that will be used for the interval loop
 
 let video = {
-    log: function (message = 'Missing log text'){
+    log: (message = 'Missing log text') => {
         if (debug) { 
             console.log(message);
         }
     },
     hotspots: {
         running: false,
-        init: function () {
+        init: () => {
             video.log('video hotspot engine: init');
             const elmsVideo = document.querySelectorAll('video');   // grab all videos on the page
             elmsVideo.forEach((elmVideo) => {                       // loop through the parents of the video elements
@@ -47,7 +47,7 @@ let video = {
                 });
             });
         },
-        on: function (isSeeked = false) {
+        on: (isSeeked = false) => {
             // start the interval loop
             video.log('video hotspot engine: on');
             if (!video.hotspots.running) {       // only start it if it isn't already running
@@ -58,13 +58,13 @@ let video = {
                 video.hotspots.update(isSeeked);
             }, msInterval);
         },
-        off: function () {
+        off: () => {
             // kill the interval var
             video.log('video hotspot engine: off');
             video.hotspots.running = false;     // make sure to tell our boolean that the engine is being stopped
             clearInterval(engine);              // stop the engine
         },
-        update: function(){
+        update: () => {
             hotspots.forEach((hotspot, index) => {
                 if (hotspot.active) {
                     // get video element for hotspot
@@ -124,7 +124,7 @@ let video = {
                 }
             });
         },
-        remove: function () {
+        remove: () => {
             // kill all hotspot related functions, json feed and DOM elements
             video.log('video hotspot engine: cleanup');
             video.hotspots.off();                                               // turn off engine
@@ -159,7 +159,7 @@ const hotspots = [
         hotspot: {
             type: "function",
             onHover: true,
-            func: function () {
+            func: () => {
                 alert('Head trauma detected, administering morphine');
             }
         }
@@ -425,7 +425,7 @@ const hotspots = [
         onHover: true,                              // trigger on hover (if type=function)
         url: "http://tv2.dk",                       // url (if type=link)
         target: "_blank",                           // target (if type=link)
-        func: function () {             // (if type=function)
+        func: () => {             // (if type=function)
             // run any javascript you want done when clicking on the hotspot
             // Leave empty if you want nothing to happen
         }
@@ -480,7 +480,7 @@ const hotspots = [
         hotspot: {
             type: "function",
             onHover: true,      // optional, will default to false (trigger function on click)
-            func: function () {
+            func: () => {
                 console.log("Internal screaming!");
             }
         }
