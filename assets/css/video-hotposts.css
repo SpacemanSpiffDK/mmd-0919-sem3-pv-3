@@ -9,3 +9,7 @@ div > .hotspot.image {
     background-size: cover;
     background-position: center;
 }
+
+video:focus {
+    outline: none;
+}
