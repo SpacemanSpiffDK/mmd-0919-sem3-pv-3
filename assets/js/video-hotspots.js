@@ -6,7 +6,7 @@
 
 // ## SETTINGS START
 const fps = 30;     // ## adjust this to set the frames per second precision on the hotspot appearance (lower = less cpu used)
-const debug = false; // ## set to true to get console.log output, use   video.log('text')
+const debug = true; // ## set to true to get console.log output, use   video.log('text')
 // ## SETTINGS END
 
 const msInterval = Math.floor(1000/fps); // calculate how many ms per loop to match desired FPS. Rounded down
@@ -78,7 +78,6 @@ let video = {
     
                         if (hotspot.markIn > now || hotspot.markOut <= now) {
                             // check to see if element with the current hotspot id exists
-                            const currentHotspotId = `#hotspotId${index}`;
                             if (elmHotspotCheck){
                                 // remove hotspot element
                                 const elmHotspot = document.querySelector(`#hotspotId${index}`);
@@ -93,31 +92,30 @@ let video = {
                                 if (hotspot.ui.title){
                                     elmHotspot.title = hotspot.ui.title;
                                 }
+                                if (hotspot.ui.text && hotspot.ui.text != ""){
+                                    elmHotspot.innerHTML = hotspot.ui.text;
+                                }
                                 let css = "";
                                 css += `width: ${hotspot.sizeX}%;`;
                                 css += `height: ${hotspot.sizeY}%;`;
                                 css += `left: ${hotspot.posX}%;`;
                                 css += `top: ${hotspot.posY}%;`;
-                                css += `border: ${hotspot.ui.boxBorder};`;
-                                if (hotspot.ui.type == 'box'){
-                                    // write and attach box-css to the elmHotspot
-                                    css += `background-color: ${hotspot.ui.boxBackgroundColor};`;
-                                } else {
+                                css += `${hotspot.ui.style};`;
+                                if (hotspot.ui.type == 'image'){
                                     // insert image css
-                                    css += `background-image: url(${hotspot.ui.image})`;
-                                    css += ``;
+                                    css += `background-image: url(${hotspot.ui.image});`;
                                     elmHotspot.classList.add('image');
                                 }
                                 elmHotspot.style = css;
                                 if (hotspot.hotspot.type == 'link'){
-                                    // it's a link
+                                    // it's a link, set target and href
                                     elmHotspot.href = hotspot.hotspot.url;
                                     elmHotspot.target = hotspot.hotspot.target;
                                 } else {
-                                    // it's a function
+                                    // it's a function, set an eventlistener for click
                                     elmHotspot.addEventListener('click', (event) => {
-                                        event.preventDefault();
-                                        hotspot.hotspot.func();
+                                        event.preventDefault(); // prevent the normal action when clicking on an <a> tag
+                                        hotspot.hotspot.func(); // run the function that the hotspot JSON contains for this hotspot
                                     });
                                 }
                                 video.parentElement.appendChild(elmHotspot);
@@ -180,8 +178,7 @@ const hotspots = [
         ui: {
             type: "box",
             title: "Visit the blender website",
-            boxBorder: "none",
-            boxBackgroundColor: "rgba(0,0,0,.1)"
+            style: "border: none; background-color: rgba(0,0,0,.1)"
         },
         hotspot: {
             type: "link",
@@ -202,8 +199,7 @@ const hotspots = [
         ui: {
             type: "box",
             title: "Visit the blender website",
-            boxBorder: "none",
-            boxBackgroundColor: "rgba(0,0,0,.1)"
+            style: "border: none; background-color: rgba(0,0,0,.1)"
         },
         hotspot: {
             type: "link",
@@ -225,7 +221,7 @@ const hotspots = [
             type: "image",
             title: "Get coffee!!!",
             image: "assets/images/get-coffee.png",
-            boxBorder: "none"
+            style: "border: none;"
         },
         hotspot: {
             type: "link",
@@ -245,8 +241,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "2px solid green",
-            boxBackgroundColor: "rgba(0,255,0,.5)"
+            style: "border: 2px solid green; background-color: rgba(0,255,0,.5)"
         },
         hotspot: {
             type: "link",
@@ -266,8 +261,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "2px solid red",
-            boxBackgroundColor: "rgba(255,0,0,.5)"
+            style: "border: 2px solid red; background-color: rgba(255,0,0,.5)"
         },
         hotspot: {
             type: "link",
@@ -287,8 +281,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "2px solid blue",
-            boxBackgroundColor: "rgba(0,0,255,.5)"
+            style: "border: 2px solid blue; background-color: rgba(0,0,255,.5)"
         },
         hotspot: {
             type: "link",
@@ -308,8 +301,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "2px solid red",
-            boxBackgroundColor: "rgba(255,0,0,.5)"
+            style: "border: 2px solid red; background-color: rgba(255,0,0,.5)"
         },
         hotspot: {
             type: "link",
@@ -329,8 +321,16 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "none",
-            boxBackgroundColor: "rgba(255,0,0,.5)"
+            // style: "border: none; background-color: rgba(255,0,0,.5); display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 2vw; color: white;",
+            style: `border: none; 
+                    background-color: rgba(255,0,0,.5); 
+                    display: flex; 
+                    justify-content: center; 
+                    align-items: center; 
+                    text-decoration: none; 
+                    font-size: 2vw; 
+                    color: white;`,
+            text: "This is text in a box"
         },
         hotspot: {
             type: "link",
@@ -350,8 +350,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "none",
-            boxBackgroundColor: "rgba(0,0,255,.5)"
+            style: "border: none; background-color: rgba(0,0,255,.5)"
         },
         hotspot: {
             type: "link",
@@ -371,8 +370,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "none",
-            boxBackgroundColor: "rgba(255,0,255,.5)"
+            style: "border: none; background-color: rgba(255,0,255,.5)"
         },
         hotspot: {
             type: "link",
@@ -392,8 +390,7 @@ const hotspots = [
         ui: {
             type: "box",
             image: "",
-            boxBorder: "none",
-            boxBackgroundColor: "rgba(0,255,0,.5)"
+            style: "border: none; background-color: rgba(0,255,0,.5)"
         },
         hotspot: {
             type: "link",
@@ -420,8 +417,7 @@ const hotspots = [
         type: "box",                                // type: "box" or "image"
         title: "Text when hovering the hotspot",    // optional: add a title attribute with the text 
         image: "",                                  // add url for image (if type=image)
-        boxBorder: "none",                          // add styles for border, can be used for both image and box
-        boxBackgroundColor: "rgba(0,255,0,.5)"      // add style for background color (if type=box)
+        style: "",                                  // add styles, can be used for both image and box
     },
     hotspot: {                          // what should the hotspot do when clicked?
         type: "link",                               // type: "link" or "function"
@@ -450,8 +446,7 @@ const hotspots = [
     ui: {
         type: "box",
         title: "Text when hovering the hotspot",    // optional: add a title attribute with the text
-        boxBorder: "2px solid green",
-        boxBackgroundColor: "rgba(0,255,0,.5)"
+        style: "border: 2px solid green; background-color: rgba(0,255,0,.5)"
     },
     hotspot: {
         type: "link",
@@ -478,7 +473,7 @@ const hotspots = [
             type: "image",
             title: "Text when hovering the hotspot",    // optional: add a title attribute with the text
             image: "assets/images/speech-scream.png",
-            boxBorder: "none"
+            style: "border: none"
         },
         hotspot: {
             type: "function",
