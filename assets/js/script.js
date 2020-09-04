@@ -12,6 +12,4 @@ let options = {
 // try the different json-objects here
 videojs('video1', options);
 
-
-
 video.hotspots.init();
