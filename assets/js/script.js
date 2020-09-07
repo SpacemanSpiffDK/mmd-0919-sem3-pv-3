@@ -11,4 +11,4 @@ let options = {
 
 videojs('video1', options);
 
-video.hotspots.init();
+// video.hotspots.init();
