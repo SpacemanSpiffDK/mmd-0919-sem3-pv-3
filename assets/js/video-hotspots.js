@@ -6,7 +6,7 @@
 
 // ## SETTINGS START
 const fps = 30;     // ## adjust this to set the frames per second precision on the hotspot appearance (lower = less cpu used)
-const debug = true; // ## set to true to get console.log output, use   video.log('text')
+const debug = false; // ## set to true to get console.log output, use   video.log('text')
 // ## SETTINGS END
 
 const msInterval = Math.floor(1000/fps); // calculate how many ms per loop to match desired FPS. Rounded down
@@ -126,7 +126,7 @@ let video = {
             });
         },
         remove: () => {
-            // kill all hotspot related functions, json feed and DOM elements
+            // kill all hotspot related functions, json feed and DOM elements - use  video.hotspots.remove()  to do this
             video.log('video hotspot engine: cleanup');
             video.hotspots.off();                                               // turn off engine
             const elmsHotspots = document.querySelectorAll('a.hotspot');        // find all hotspot DOM elements
@@ -153,9 +153,8 @@ const hotspots = [
         posX: 52,
         posY: 6,
         ui: {
-            type: "image",
-            image: "assets/images/speech-scream.png",
-            boxBorder: "none"
+            type: "image",  // legal values are "box" & "image"
+            image: "assets/images/speech-scream.png"
         },
         hotspot: {
             type: "function",
