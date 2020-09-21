@@ -158,7 +158,6 @@ const hotspots = [
         },
         hotspot: {
             type: "function",
-            onHover: true,
             func: () => {
                 alert('Head trauma detected, administering morphine');
             }
