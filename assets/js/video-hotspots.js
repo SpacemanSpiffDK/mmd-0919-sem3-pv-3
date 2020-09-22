@@ -119,6 +119,10 @@ let video = {
                                     });
                                 }
                                 video.parentElement.appendChild(elmHotspot);
+                                // pause video if pause is set to true
+                                if (hotspot.ui.pause) {
+                                    videojs(hotspot.videoId).pause();
+                                }
                             }
                         } 
                     }
@@ -237,6 +241,7 @@ const hotspots = [
         posX: 50,
         posY: 25,
         ui: {
+            pause: true,
             type: "box",
             image: "",
             style: "border: 2px solid green; background-color: rgba(0,255,0,.5)"
@@ -257,6 +262,7 @@ const hotspots = [
         posX: 60,
         posY: 30,
         ui: {
+            pause: true,
             type: "box",
             image: "",
             style: "border: 2px solid red; background-color: rgba(255,0,0,.5)"
@@ -412,6 +418,7 @@ const hotspots = [
     posX: 0,                // left position (in %, but don't write %)
     posY: 50,               // top position (in %, but don't write %)
     ui: {                               // how should the hotspot look?
+        pause: true,                               // should the video pause when the hotspot appears? OPTIONAL
         type: "box",                                // type: "box" or "image"
         title: "Text when hovering the hotspot",    // optional: add a title attribute with the text 
         image: "",                                  // add url for image (if type=image)
@@ -419,7 +426,6 @@ const hotspots = [
     },
     hotspot: {                          // what should the hotspot do when clicked?
         type: "link",                               // type: "link" or "function"
-        onHover: true,                              // trigger on hover (if type=function)
         url: "http://tv2.dk",                       // url (if type=link)
         target: "_blank",                           // target (if type=link)
         func: () => {             // (if type=function)
@@ -442,6 +448,7 @@ const hotspots = [
     posX: 0,
     posY: 50,
     ui: {
+        pause: true,                               // should the video pause when the hotspot appears? OPTIONAL
         type: "box",
         title: "Text when hovering the hotspot",    // optional: add a title attribute with the text
         style: "border: 2px solid green; background-color: rgba(0,255,0,.5)"
@@ -475,7 +482,6 @@ const hotspots = [
         },
         hotspot: {
             type: "function",
-            onHover: true,      // optional, will default to false (trigger function on click)
             func: () => {
                 console.log("Internal screaming!");
             }

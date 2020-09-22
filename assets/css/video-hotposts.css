@@ -5,7 +5,7 @@
 div > .hotspot {
     box-sizing: border-box;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     cursor: pointer;
 }
 
@@ -17,3 +17,18 @@ div > .hotspot.image {
 video:focus {
     outline: none;
 }
+
+.hotspotClickBlocker {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    position: absolute;
+    z-index: 1;
+}
+
+
+
+/* This disables play/pause by clicking on the video */
+/* .vjs-tech {
+    pointer-events: none;
+} */
